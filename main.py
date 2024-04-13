@@ -34,5 +34,28 @@ def encode(password):
             return " "
     return encoded_password
 
+def encode(password):
+    if not password.isdigit() or len(password) != 8:
+        raise ValueError("Password should be 8 digits long and contain only integers.")
+
+    digit_pw = [int(digit) for digit in password]
+    digit_encoded = [(digit + 3) % 10 for digit in digit_pw]
+    pw_encoded = [str(digit) for digit in digit_encoded]
+    return ''.join(pw_encoded)
+
+def decode(password):
+    if not password.isdigit() or len(password) != 8:
+        raise ValueError("Password should be 8 digits long and contain only integers.")
+
+    digit_pw = [int(digit) for digit in password]
+    digit_decoded=""
+    for digit in digit_pw:
+        if digit > 2:
+            digit_decoded += str(digit - 3)
+        else:
+            digit_decoded += str(digit+7)
+
+    return digit_decoded
+    
 if __name__ == "__main__":
     main()
